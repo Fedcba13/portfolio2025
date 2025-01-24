@@ -22,25 +22,34 @@
             <span class="visually-hidden">(current)</span>
           </a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="#">Action</a>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Separated link</a>
-          </div>
-        </li>
+        <c:forEach var="menu" items="${menuList}" varStatus="status">
+        	<c:if test="${menu.level == 1 }">
+        		<%-- 하위 메뉴가 있는 경우 --%>
+        		<c:if test="${menuList[status.index + 1].level == 2}">
+        			<li class="nav-item dropdown">
+          				<a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" id="${menu.category_id }" role="button" aria-haspopup="true" aria-expanded="false">${menu.category_name }</a>
+          				<div class="dropdown-menu">
+        		</c:if>
+        		<%-- 하위 메뉴가 없는 경우 --%>
+        		<c:if test="${menuList[status.index + 1].level == 1}">
+        			<li class="nav-item">
+          				<a class="nav-link" href="#" id="${menu.category_id }">${menu.category_name }</a>
+        			</li>
+        		</c:if>
+        	</c:if>
+        	<c:if test="${menu.level == 2 }">
+        		<%-- 하위 메뉴가 지속되는 경우 --%>
+        		<c:if test="${menuList[status.index + 1].level == 2}">
+   							<a class="dropdown-item" href="#" id="${menu.category_id }">${menu.category_name }</a>
+				</c:if>
+				<%-- 하위 메뉴가 끝난 경우 --%>
+				<c:if test="${menuList[status.index + 1].level == 1}">
+   							<a class="dropdown-item" href="#" id="${menu.category_id }">${menu.category_name }</a>
+       					</div> <!-- close dropdown-menu -->
+       				</li>
+       			</c:if>
+       		</c:if>
+        </c:forEach>
       </ul>
       <form class="d-flex">
         <input class="form-control me-sm-2" type="search" placeholder="Search">

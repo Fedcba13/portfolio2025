@@ -1,6 +1,5 @@
 package com.kmh.dogcat;
 
-import java.util.Iterator;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.kmh.dogcat.controller.CommonController;
-import com.kmh.dogcat.service.CommonService;
 
 /**
  * Handles requests for the application home page.
@@ -33,12 +31,6 @@ public class HomeController {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
 		model.addAttribute("menuList", commonController.getMenu() );
-		
-		logger.info(commonController.getMenu().size() + "");
-		
-		for(String key : commonController.getMenu().get(0).keySet()) {
-			logger.info(key);
-		}
 		
 		return "index";
 	}
